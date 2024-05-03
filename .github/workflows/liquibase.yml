@@ -29,10 +29,10 @@ jobs:
         chmod +x liquibase
         sudo mv liquibase /usr/local/bin/
 
-    - name: Run Liquibase Update
+    - name: Execute Liquibase
       run: |
-        liquibase --changeLogFile=db/changelog.xml \
-                  --url=jdbc:mysql://localhost:3306/mydatabase \
-                  --username=myusername \
-                  --password=mypassword \
-                  update
+         # liquibase.bat --changeLogFile=001_create_table.xml --defaultsFile=liquibase.properties update 
+
+          liquibase.bat --changeLogFile=changelogs/changesets/${{ github.event.inputs.filename }} --defaultsFile=liquibase.properties update
+
+         # liquibase.bat --changeLogFile=changelogs/changesets/master_changelog.xml --defaultsFile=changelogs/changesets/liquibase.properties update
