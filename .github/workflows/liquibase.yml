@@ -31,7 +31,6 @@ jobs:
 
     - name: Run Liquibase Update
       run: |
-        liquibase --changeLogFile=changelogs/changesets/ \
-              --defaultsFile=liquibase.properties \
-              update
-      shell: bash
+        liquibase --changeLogFile=changelogs/changesets/changelog.xml \
+                  --defaultsFile=liquibase.properties \
+                  update
