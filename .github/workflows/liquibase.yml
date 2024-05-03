@@ -30,9 +30,5 @@ jobs:
         sudo mv liquibase /usr/local/bin/
 
     - name: Execute Liquibase
-      run: |
-         # liquibase.bat --changeLogFile=001_create_table.xml --defaultsFile=liquibase.properties update 
-
+      run: | 
           liquibase.bat --changeLogFile=changelogs/changesets/${{ github.event.inputs.filename }} --defaultsFile=liquibase.properties update
-
-         # liquibase.bat --changeLogFile=changelogs/changesets/master_changelog.xml --defaultsFile=changelogs/changesets/liquibase.properties update
