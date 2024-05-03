@@ -1,26 +1,37 @@
-name: Liquibase CI/CD
+name: Liquibase Workflow
 
 on:
-  workflow_dispatch:
-    inputs:
-      filename:
-        description: 'Name of the Liquibase changelog file'
-        required: true
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  build:
-    runs-on: self-hosted
+  liquibase:
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Execute Liquibase
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+
+    - name: Download Liquibase
       run: |
-         # liquibase.bat --changeLogFile=001_create_table.xml --defaultsFile=liquibase.properties update 
+        wget -O liquibase.tar.gz https://github.com/liquibase/liquibase/releases/download/liquibase-parent-4.8.0/liquibase-4.8.0.tar.gz
+        tar -xzf liquibase.tar.gz
+        chmod +x liquibase
+        sudo mv liquibase /usr/local/bin/
 
-          liquibase.bat --changeLogFile=changelogs/changesets/${{ github.event.inputs.filename }} --defaultsFile=liquibase.properties update
-
-         # liquibase.bat --changeLogFile=changelogs/changesets/master_changelog.xml --defaultsFile=changelogs/changesets/liquibase.properties update
-
-      shell: cmd
+    - name: Run Liquibase Update
+      run: |
+        liquibase --changeLogFile=changelogs/changesets/master_changelog.xml \
+                  --url=jdbc:mysql://localhost:3306/mydatabase \
+                  --username=liquibaseserver \
+                  --password=dbops123@ \
+                  update
