@@ -17,7 +17,7 @@ jobs:
 
     - name: Execute Liquibase
       run: |
-         # liquibase.bat --changeLogFile=01_create_table.yaml --defaultsFile=liquibase.properties update 
+         # liquibase.bat --changeLogFile=001_create_table.xml --defaultsFile=liquibase.properties update 
 
           liquibase.bat --changeLogFile=changelogs/changesets/${{ github.event.inputs.filename }} --defaultsFile=liquibase.properties update
 
