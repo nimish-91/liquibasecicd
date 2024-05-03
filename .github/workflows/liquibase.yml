@@ -10,7 +10,7 @@ on:
 
 jobs:
   liquibase:
-    runs-on: windows
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
@@ -18,9 +18,9 @@ jobs:
 
     - name: Set up JDK
       uses: actions/setup-java@v2
-    with:
-    java-version: '11'
-    distribution: 'adopt'
+      with:
+        java-version: '11'
+        distribution: 'adopt'
 
     - name: Download Liquibase
       run: |
