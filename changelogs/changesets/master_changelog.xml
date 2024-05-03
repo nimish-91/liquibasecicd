@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <!-- Include the changeset to create a table -->
+    <include file="changelogs/changesets/001_create_table.xml"/>
+
+    <!-- Include the changeset to add a column -->
+    <include file="changelogs/changesets/002_add_column.xml"/>
+
+    <!-- Include the changeset to insert data -->
+    <include file="changelogs/changesets/003_insert_data.xml"/>
+
+</databaseChangeLog>
