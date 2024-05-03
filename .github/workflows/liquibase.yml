@@ -29,6 +29,9 @@ jobs:
         chmod +x liquibase
         sudo mv liquibase /usr/local/bin/
 
-    - name: Execute Liquibase
-      run: | 
-          liquibase.bat --changeLogFile=changelogs/changesets/${{ github.event.inputs.filename }} --defaultsFile=liquibase.properties update
+    - name: Run Liquibase Update
+      run: |
+        liquibase --changeLogFile=changelogs/changesets/ \
+              --defaultsFile=liquibase.properties \
+              update
+      shell: bash
