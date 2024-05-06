@@ -1,0 +1,26 @@
+name: Liquibase CI/CD
+
+on:
+  workflow_dispatch:
+    inputs:
+      filename:
+        description: 'Name of the Liquibase changelog file'
+        required: true
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Execute Liquibase
+      run: |
+         # liquibase.bat --changeLogFile=001_create_table.xml --defaultsFile=liquibase.properties update 
+
+          liquibase.bat --changeLogFile=changelogs/changesets/${{ github.event.inputs.filename }} --defaultsFile=liquibase.properties update
+
+         # liquibase.bat --changeLogFile=changelogs/changesets/master_changelog.xml --defaultsFile=changelogs/changesets/liquibase.properties update
+
+      shell: cmd
