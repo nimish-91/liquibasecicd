@@ -18,9 +18,9 @@ jobs:
     - name: Run Liquibase update
       run: |
           liquibase --changeLogFile=changelog.xml \
-                    --url=jdbc:mysql://localhost:3306/mydatabase \
-                    --username=myuser \
-                    --password=mypassword \
+                    --url=jdbc:mysqlserver://liquibasemysqlserver.mysql.database.azure.com;databaseName=liquibasedatabase \
+                    --username=liquibaseserver \
+                    --password=dbops123@ \
                     updates/liquibase.properties update
 
       shell: cmd
